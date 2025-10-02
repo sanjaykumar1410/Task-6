@@ -1,0 +1,124 @@
+1. What is a template in Flask?
+
+A template in Flask is an HTML file that can include dynamic content using special syntax. Templates are stored in a folder
+named templates/, and Flask uses them to generate web pages dynamically using the render_template() function.
+
+2. What’s Jinja2?
+
+Jinja2 is Flask’s template engine.
+It allows embedding Python-like expressions inside HTML files using tags like:
+
+{{ variable }} → to display variables
+
+{% for %}, {% if %} → to use loops and conditions
+
+Example:
+
+<h2>Hello, {{ name }}!</h2>
+
+3. How do you pass data to a template?
+
+You pass data using render_template() and keyword arguments.
+
+Example:
+
+@app.route('/user/<name>')
+def user(name):
+    return render_template('user.html', username=name)
+
+
+In user.html:
+
+<p>Welcome, {{ username }}</p>
+
+4. How are forms handled in Flask?
+
+Forms are handled using HTTP methods (GET and POST).
+
+The form in HTML sends data to a Flask route.
+
+The route processes the data with request.form.
+
+Example:
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        message = request.form['message']
+        return f"Thanks {name}, your message is received!"
+    return render_template('contact.html')
+
+5. What is render_template()?
+
+render_template() is a Flask function that:
+
+Loads an HTML file from the templates folder
+
+Renders it dynamically with variables or data passed from Python
+
+Example:
+
+return render_template('index.html', name='Sanjay')
+
+6. How to style your app?
+
+You can style your Flask app using CSS, Bootstrap, or JavaScript stored inside the static/ folder.
+
+Example folder:
+
+static/
+ └── css/
+     └── style.css
+
+
+In HTML:
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+7. What’s POST vs GET method in forms?
+Method	Description	Use Case
+GET	Sends data through the URL	Searching or fetching data
+POST	Sends data through the body (hidden)	Submitting forms (login, contact, etc.)
+
+Example:
+
+<form method="POST" action="/submit">
+
+8. What are static files?
+
+Static files are files that don’t change dynamically, such as:
+
+CSS
+
+JavaScript
+
+Images
+
+They are stored in the static/ folder and accessed using:
+
+<img src="{{ url_for('static', filename='img/profile.jpg') }}">
+
+9. How is routing done in Flask?
+
+Routing maps a URL path to a Python function using the @app.route() decorator.
+
+Example:
+
+@app.route('/')
+def home():
+    return "Welcome to my portfolio!"
+
+10. Can Flask serve HTML/CSS/JS?
+
+✅ Yes.
+Flask serves:
+
+HTML templates from the templates/ folder
+
+CSS, JS, images from the static/ folder
+
+So, Flask can act as both the backend and the frontend web server.
+
+
+    └── contact.html
